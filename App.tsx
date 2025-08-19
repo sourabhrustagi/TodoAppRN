@@ -5,33 +5,29 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { logger } from './src/utils/logger';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  logger.info('App: Starting TodoRN application');
+ 
+  const [count, setCount] = useState<number>(0);
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  useEffect(()=>{
+    console.log('count changed: ${count}');
+    
+    return ()=>{
+      console.log('Cleanup before next effect or unmount');
+    };
+  }, [count])
 
   return (
     <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
+      <StatusBar barStyle="dark-content" />
+      <Text style={styles.text}>Hello World2</Text>
+      <Text>Count: {count}</Text>
+      <Button title="Increment" onPress={()=> setCount(count+1)}/>
     </View>
   );
 }
@@ -39,6 +35,14 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
   },
 });
 
