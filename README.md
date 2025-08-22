@@ -95,3 +95,127 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+Here’s a detailed explanation of the entire screen flow for the advanced React Native Todo app test:
+
+***
+
+## Screen Flow Explanation
+
+### 1. **Splash / Loading Screen (Optional)**
+- Displays while the app is initializing.
+- Checks if the user is already authenticated (using persisted auth state).
+- Redirects to **Login Screen** if not authenticated or **Todo List Screen** if logged in.
+
+***
+
+### 2. **Sign Up Screen**
+- Form for new users to create an account (email, password, username).
+- Validates inputs and shows error messages for invalid or existing credentials.
+- On successful sign-up, automatically logs the user in or redirects to Login Screen.
+- Option to navigate to Login Screen.
+
+***
+
+### 3. **Login Screen**
+- Allows existing users to authenticate with email and password.
+- Shows form validation messages and login errors.
+- Supports login via biometric authentication (fingerprint or Face ID) if enabled.
+- On successful login, navigates to the **Todo List Screen**.
+- Option to navigate to Sign Up Screen.
+
+***
+
+### 4. **Todo List Screen**
+- Displays a scrollable list of todo items.
+- Each todo shows key info: title, completion status, priority, and due date.
+- Includes search bar and filters (e.g., by status, priority).
+- Supports drag-and-drop todo sorting.
+- Swipe gestures allow quick marking as complete or deleting.
+- Button to add a new todo navigates to **Todo Detail Screen** in “add” mode.
+- Selecting a todo navigates to **Todo Detail Screen** with that todo’s details.
+- Access to app menu or bottom tab includes navigation to **Settings Screen**.
+- Logout button accessible via menu or settings.
+
+***
+
+### 5. **Todo Detail Screen**
+- Shows full todo details: title, description, priority, due date, creation date, completion status.
+- Editable form for updating fields with validation.
+- Save button persists changes and navigates back to Todo List.
+- Delete button removes todo and navigates back to Todo List.
+- Cancel or back button discards changes and returns to Todo List.
+- Displays loading or error states during save/delete operations.
+
+***
+
+### 6. **Settings Screen**
+- Allows user to:
+  - Toggle dark/light theme with instant UI updates.
+  - Toggle notifications on/off (simulated toggle).
+  - Update account info (optional).
+  - Logout button that clears auth state and navigates back to Login Screen.
+- Stores settings persistently and applies changes app-wide.
+- Navigation back to Todo List or other main screens.
+
+***
+
+### Navigation Flow Summary
+
+```plaintext
+[Splash Screen] 
+    ├─> [Login Screen] 
+    │     ├─> [Sign Up Screen]
+    │     └─> Successful login → [Todo List Screen]
+    └─> Authenticated → [Todo List Screen]
+              ├─> [Todo Detail Screen] (for creating/editing todos)
+              └─> [Settings Screen]
+                      └─> Logout → [Login Screen]
+```
+
+***
+
+### Key UX Considerations
+
+- **Protected Routes:** Only authenticated users can access Todo and Settings screens.
+- **State Persistence:** Auth, todos, and settings saved locally for seamless user experience.
+- **Smooth Transitions:** Navigation animations and UI feedback on actions.
+- **Offline Support:** Users can view and edit todos even without network connectivity, syncing when online.
+
+***
+
+This screen flow emulates complex user journeys expected in production-level fintech or enterprise React Native apps, testing navigation, state, security, and usability comprehensively.
+
+First deliver instruction:
+Frist basic todo app with best practises and mock response nad use following libraries
+
+UI Components	React Native Paper
+Navigation	React Navigation
+State Management	Redux Toolkit
+Forms & Validation	React Hook Form
+Network/API Calls	Axios
+Storage/Persistence	AsyncStorage
+List Performance	FlashList
+Authentication	Firebase Auth
+Secure Storage	React Native Keychain
+Testing (unit/UI)	Jest
+
+next phase 
+Animations	React Native Reanimated
+Gestures	React Native Gesture Handler
+App Configuration & Env Vars	Separate configs, secure keys, feature toggles	react-native-config / react-native-dotenv
+Error Tracking & Crash Reporting	Catch issues, stability, telemetry	Sentry, Firebase Crashlytics
+Analytics & User Behavior	Understand usage, improve product, KPIs	Firebase Analytics, Amplitude, Segment
+Internationalization (i18n)	Support multiple languages, localization	react-i18next, react-native-localize
+Accessibility	Usable for all, meets standards, inclusivity	Accessible props, color contrast, screen readers
+CI/CD	Automated tests/builds, safer/faster releases	GitHub Actions, Bitrise, CircleCI, Fastlane
+App Versioning & Updates	Track releases, OTA updates, backward compatibility	react-native-code-push
+Deep Linking & Universal Links	Entry to screens from outside/app links	React Navigation Deep Linking, Branch.io
+Security	Data safety, compliance, code protection	Secure storage, cert pinning, obfuscation
+Performance Monitoring	Detect/resolve bottlenecks, smooth UX	Flipper, Reactotron, Firebase Performance
+Image & Asset Management	Optimize images/assets for all devices/performance	react-native-fast-image
+Background Tasks & Notifications	Reliable syncing/alerts/reminders	react-native-background-fetch, RN Firebase Messaging
+Feature Flags / A/B Testing	Gradual release, experiments	launchdarkly-react-native-client-sdk
+Onboarding / Walkthrough	User onboarding, product adoption	react-native-app-intro-slider
+Data Encryption	Protect data at rest and in transit	Encryption libraries, secure storage
