@@ -6,17 +6,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useAppDispatch} from '../store/hooks';
+import {Todo} from '../types/todo';
+import {addTodo} from '../store/slices/todoSlice';
 
-interface AddTodoProps {
-  onAdd: (text: string) => void;
-}
-
-const AddTodo: React.FC<AddTodoProps> = ({ onAdd }) => {
+const AddTodo: React.FC = () => {
   const [text, setText] = useState('');
+  const dispatch = useAppDispatch();
 
   const handleAdd = () => {
     if (text.trim()) {
-      onAdd(text.trim());
+      const newTodo: Todo = {
+        id: Date.now().toString(),
+        text: text.trim(),
+        completed: false,
+      };
+      dispatch(addTodo(newTodo));
       setText('');
     }
   };

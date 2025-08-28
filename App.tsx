@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { logger } from './src/utils/logger';
 import React, { useEffect, useState } from 'react';
@@ -12,51 +5,32 @@ import { Todo } from './src/types/todo';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddTodo from './src/components/AddTodo';
 import TodoList from './src/components/TodoList';
+import { Provider } from 'react-redux';
+import {store} from './src/store';
+import TodoStats from './src/components/TodoStats';
 
-function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  const addTodo = (text: string) => {
-    const newTodo: Todo = {
-      id: Date.now().toString(),
-      text,
-      completed: false,
-    };
-    setTodos([newTodo, ...todos]);
-  };
-
-  const toggleTodo = (id: string) =>{
-    setTodos(
-      todos.map((todo)=>
-        todo.id === id ? {...todo, completed: !todo.completed}: todo
-      )
-    );
-  };
-
-  const deleteTodo = (id: string) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  }
-
-  const completedCount = todos.filter((todo)=> todo.completed).length;
-  const totalCount = todos.length;
-
+function AppContent() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'dark-content'} backgroundColor="#F8F8F8" />
 
       <View style={styles.header}>
         <Text style={styles.title}>Todo App</Text>
-        {totalCount > 0 && (
-          <Text style = {styles.subtitle}>
-            {completedCount} of {totalCount} tasks completed
-          </Text>
-        )}
+        <TodoStats />
       </View>
 
-      <AddTodo onAdd={addTodo} />
+      <AddTodo  />
 
-      <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
+      <TodoList/>
     </SafeAreaView>
+  );
+}
+
+function App() {
+  return(
+    <Provider store={store}>
+      <AppContent />
+    </Provider>
   );
 }
 

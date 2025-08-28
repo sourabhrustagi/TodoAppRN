@@ -1,18 +1,16 @@
 import { FlatList, View, Text, StyleSheet } from 'react-native';
 import { Todo } from '../types/todo';
 import TodoItem from './TodoItem';
+import { useAppSelector } from '../store/hooks';
+import { selectAllTodos } from '../store/selectors/todoSelectors';
 
-interface TodoListProps {
-  todos: Todo[];
-  onToggle: (id: string) => void;
-  onDelete: (id: string) => void;
-}
+const TodoList: React.FC = () => {
+  const todos = useAppSelector(selectAllTodos);
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onDelete }) => {
   if (todos.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>No todos yet!</Text>
+        <Text style={styles.emptyText}>No todos yest!</Text>
         <Text style={styles.emptySubtext}>Add a todo to get started.</Text>
       </View>
     );
@@ -25,10 +23,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onDelete }) => {
       renderItem={({ item }) => (
         <TodoItem
           id={item.id}
-          onToggle={onToggle}
           text={item.text}
           completed={item.completed}
-          onDelete={onDelete}
         />
       )}
       style={styles.list}
