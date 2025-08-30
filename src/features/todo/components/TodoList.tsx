@@ -1,8 +1,8 @@
 import { FlatList, View, Text, StyleSheet } from 'react-native';
 import { Todo } from '../types/todo';
 import TodoItem from './TodoItem';
-import { useAppSelector } from '../store/hooks';
-import { selectAllTodos } from '../store/selectors/todoSelectors';
+import { useAppSelector } from '../hooks/hooks';
+import { selectAllTodos } from '../../todoSelectors';
 
 const TodoList: React.FC = () => {
   const todos = useAppSelector(selectAllTodos);

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useAppDispatch } from '../store/hooks';
-import { toggleTodo } from '../store/slices/todoSlice';
-import { deleteTodo } from '../store/slices/todoSlice';
+import { useAppDispatch } from '../hooks/hooks';
+import { toggleTodo } from '../../todoSlice';
+import { deleteTodo } from '../../todoSlice';
 
 interface TodoItemProps {
   id: string;

@@ -6,23 +6,31 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useAppDispatch} from '../store/hooks';
-import {Todo} from '../types/todo';
-import {addTodo} from '../store/slices/todoSlice';
+import { useAppDispatch } from '../hooks/hooks';
+import { Todo } from '../types/todo';
+import { addTodo } from '../../todoSlice';
+import { validateTodoText } from '../utils/todoUtils';
+import { ERROR_MESSAGES } from '../../../shared/constants';
+import { useCreateTodo } from '../hooks/todoHooks';
 
 const AddTodo: React.FC = () => {
   const [text, setText] = useState('');
-  const dispatch = useAppDispatch();
+  const [error, setError] = useState<string | null>(null);
+  const { createTodo } = useCreateTodo();
 
   const handleAdd = () => {
-    if (text.trim()) {
-      const newTodo: Todo = {
-        id: Date.now().toString(),
-        text: text.trim(),
-        completed: false,
-      };
-      dispatch(addTodo(newTodo));
+    const validation = validateTodoText(text);
+
+    if (!validation.isValid) {
+      setError(validation.error || ERROR_MESSAGES.VALIDATION_ERROR);
+    }
+
+    try {
+      createTodo(text);
       setText('');
+      setError(null);
+    } catch (err) {
+      setError(ERROR_MESSAGES.UNKNOWN_ERROR);
     }
   };
 

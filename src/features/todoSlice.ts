@@ -1,4 +1,4 @@
-import { Todo } from '../../types/todo';
+import { Todo } from './todo/types/todo';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface TodoState {

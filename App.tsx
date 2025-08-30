@@ -1,13 +1,13 @@
 import { Button, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { logger } from './src/utils/logger';
+import { logger } from './src/shared/utils/logger';
 import React, { useEffect, useState } from 'react';
-import { Todo } from './src/types/todo';
+import { Todo } from './src/features/todo/types/todo';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AddTodo from './src/components/AddTodo';
-import TodoList from './src/components/TodoList';
+import AddTodo from './src/features/todo/components/AddTodo';
+import TodoList from './src/features/todo/components/TodoList';
 import { Provider } from 'react-redux';
-import {store} from './src/store';
-import TodoStats from './src/components/TodoStats';
+import {store} from './src/app/store';
+import TodoStats from './src/features/todo/components/TodoStats';
 
 function AppContent() {
   return (
