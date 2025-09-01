@@ -7,6 +7,12 @@ import { selectAllTodos } from '../../todoSelectors';
 const TodoList: React.FC = () => {
   const todos = useAppSelector(selectAllTodos);
 
+  const handleDeletePress = (id: string, text: string) => {
+    showDeleteTodoDialog(
+      
+    );
+  };
+
   if (todos.length === 0) {
     return (
       <View style={styles.emptyContainer}>
@@ -25,6 +31,7 @@ const TodoList: React.FC = () => {
           id={item.id}
           text={item.text}
           completed={item.completed}
+          onDeletePress={handleDeletePress}
         />
       )}
       style={styles.list}

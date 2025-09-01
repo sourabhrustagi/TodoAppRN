@@ -7,10 +7,15 @@ interface TodoItemProps {
   id: string;
   text: string;
   completed: boolean;
+  onDeletePress: (id: string, text: string) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed, onDeletePress }) => {
   const dispatch = useAppDispatch();
+
+  const handleDeletePress = () => {
+    onDeletePress(id, text);
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -26,7 +31,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => dispatch(deleteTodo(id))}
+        onPress={handleDeletePress}
       >
         <Text style={styles.deleteText}>x</Text>
       </TouchableOpacity>

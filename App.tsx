@@ -8,6 +8,7 @@ import TodoList from './src/features/todo/components/TodoList';
 import { Provider } from 'react-redux';
 import {store} from './src/app/store';
 import TodoStats from './src/features/todo/components/TodoStats';
+import { DialogContainer } from './src/shared/components/DialogContainer';
 
 function AppContent() {
   return (
@@ -22,6 +23,7 @@ function AppContent() {
       <AddTodo  />
 
       <TodoList/>
+      <DialogContainer/>
     </SafeAreaView>
   );
 }
